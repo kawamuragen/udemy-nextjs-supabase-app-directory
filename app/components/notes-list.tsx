@@ -16,10 +16,10 @@ async function fetchNotes() {
       apikey: process.env.apikey as string,
     }),
     // Cashしないオプション
-    // cache: 'no-store',
+    cache: 'no-store',
 
     // ISR設定１０秒
-    next: { revalidate: 10 },
+    // next: { revalidate: 10 },
   })
   if (!res.ok) {
     throw new Error('Failed to fetch data in server')
