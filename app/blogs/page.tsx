@@ -7,6 +7,7 @@ export default function BlogPage() {
         Click a title on the left to view detail 🚀
       </span>
       <div className="my-5 flex justify-center">
+        {/* router.pushで遷移する場合はハードナビゲーション */}
         <RouterBtn />
       </div>
     </div>

@@ -1,3 +1,5 @@
+// ブログ一覧を選択されたときの詳細ページ
+
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { format } from 'date-fns'
@@ -19,8 +21,8 @@ async function fetchBlog(blogId: string) {
       headers: new Headers({
         apikey: process.env.apikey as string,
       }),
-      cache: 'no-store',
-      // cache: 'force-cache',
+      // cache: 'no-store',
+      cache: 'force-cache',
     }
   )
   //   IDがない場合はNotFoundを表示させるため、ここではエラーを発生しない
@@ -32,8 +34,11 @@ async function fetchBlog(blogId: string) {
 }
 
 export default async function BlogDetailPage({ params }: PageProps) {
+  // 対象のブログを１つ取得する
   const blog = await fetchBlog(params.blogId)
+  // 存在しない場合はNotFound
   if (!blog) return notFound()
+
   return (
     <div className="mt-16 p-8">
       <p>
@@ -56,6 +61,9 @@ export default async function BlogDetailPage({ params }: PageProps) {
   )
 }
 
+// [blogId] のような、ダイナミックセグメントでは毎回ハードナビゲーションになる
+// generateStaticParams：blogIdの一覧を返す関数をexportしておくことで、
+// 予め情報の取得をおこなってStaticなコンポーネントを作成しておくことができる
 export async function generateStaticParams() {
   const res = await fetch(`${process.env.url}/rest/v1/blogs?select=*`, {
     headers: new Headers({

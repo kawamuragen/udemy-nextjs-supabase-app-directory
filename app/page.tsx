@@ -17,6 +17,11 @@ export default function Page() {
         {/* Importing Client Components into Server Components */}
         <TimerCounter />
         <RefreshBtn />
+        <p>
+          サーバーコンポーネントで管理している部分のみ更新
+          <br />
+          上のuseStateで管理しているカウントの値はリフレッシュされない。
+        </p>
       </div>
     </main>
   )

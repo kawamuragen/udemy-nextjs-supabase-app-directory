@@ -1,3 +1,6 @@
+// asideではブログリストをStaticで受け取り表示、再読み込みボタン
+// mainにChildrenで受け取ったコンポーネントを表示
+
 import BlogListStatic from '../components/blog-list-static'
 import RefreshBtn from '../components/refresh-btn'
 
@@ -13,6 +16,12 @@ export default function BlogLayout({
         <BlogListStatic />
         <div className="flex justify-center">
           <RefreshBtn />
+          <p>
+            個別ページ部分はダイナミックセグメントのため、毎回ハードナビゲーション
+          </p>
+          <p>
+            この左ペイン合わせたBlogセグメント全体をリフレッシュしたい場合は、上のボタン`router.refresh()`を実行
+          </p>
         </div>
       </aside>
       <main className="flex flex-1 justify-center">{children}</main>

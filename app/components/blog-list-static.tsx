@@ -1,3 +1,5 @@
+// ブログのデータ一覧を取得・左ペインに表示するサーバーコンポーネント
+
 import Link from 'next/link'
 import type { Database } from '../../database.types'
 

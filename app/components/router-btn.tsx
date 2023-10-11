@@ -1,4 +1,7 @@
 'use client'
+
+// 特定のページに遷移するボタンコンポーネント
+// useRouterはクライアントのみ使える
 import { useRouter } from 'next/navigation'
 
 export default function RouterBtn({

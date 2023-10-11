@@ -13,11 +13,6 @@ export default function RefreshBtn() {
       >
         Refresh current route
       </button>
-      <p>
-        サーバーコンポーネントで管理している部分のみ更新
-        <br />
-        上のuseStateで管理しているカウントの値はリフレッシュされない。
-      </p>
     </div>
   )
 }
