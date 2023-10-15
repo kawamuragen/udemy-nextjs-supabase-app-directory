@@ -1,3 +1,5 @@
+// セグメントレベルで一括してCashオプションを指定する
+// すべてダイナミックレンダリングを有効化する
 export const revalidate = 0
 
 import { Suspense } from 'react'
@@ -5,6 +7,8 @@ import BlogList from '../components/blog-list'
 import NewsList from '../components/news-list'
 import Spinner from '../components/spinner'
 
+// 左ペインでは呼び出し6秒のブログ一覧
+// 中央では呼び出し2秒のニュース一覧
 export default function StreamingServerRenderingPage() {
   return (
     <section className="flex">

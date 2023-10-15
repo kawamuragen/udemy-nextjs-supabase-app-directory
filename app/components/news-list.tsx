@@ -1,3 +1,6 @@
+// ニュース一覧を取得する
+// ブログの一覧は6秒、ニュースの一覧は2秒の差がある
+
 import type { Database } from '../../database.types'
 import Counter from './counter'
 
@@ -21,6 +24,9 @@ export default async function NewsList() {
   const news = await fetchNews()
   return (
     <div className="m-1 border border-blue-500 p-4">
+      <p>
+        左のブログ一覧読み込みが終了していなくても、下記のカウントアップボタンはインタラクティブになる
+      </p>
       <Counter />
       <p className="my-4 pb-3 text-xl font-medium underline underline-offset-4">
         News

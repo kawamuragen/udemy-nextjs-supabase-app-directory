@@ -1,3 +1,6 @@
+// Supabaseからブログの一覧を取得
+// Streaming-HTMLのページで利用し、一覧取得は6秒かかるため遅い
+
 import type { Database } from '../../database.types'
 type Blog = Database['public']['Tables']['blogs']['Row']
 

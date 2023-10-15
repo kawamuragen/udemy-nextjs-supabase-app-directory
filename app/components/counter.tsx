@@ -1,4 +1,7 @@
 'use client'
+
+// news-listで利用する
+
 import { useState } from 'react'
 
 export default function Counter() {
