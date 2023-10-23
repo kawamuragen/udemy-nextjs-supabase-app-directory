@@ -1,4 +1,6 @@
 'use client'
+
+// Supabaseのログイン用のAPI呼び出しコンポーネント
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
@@ -11,10 +13,12 @@ export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+
+  // ユーザーパスワードを入れてログインボタン押した時の処理
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     // submitされたときにページがリロードしないようにpreventDefault
     e.preventDefault()
-    // ログイン状態でボタンが押されたとき
+    // loginモードでボタンが押されたとき
     if (isLogin) {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -27,8 +31,8 @@ export default function Auth() {
       } else {
         router.push('/auth/todo-crud')
       }
-      // レジスターモードの場合
     } else {
+      // registerモードの場合
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -40,16 +44,21 @@ export default function Auth() {
       }
     }
   }
+
   function signOut() {
     supabase.auth.signOut()
   }
+
   return (
     <div className="flex flex-col items-center justify-center">
       <p>{loginUser.email}</p>
-      <ArrowRightOnRectangleIcon
-        className="my-6 h-6 w-6 cursor-pointer text-blue-500"
-        onClick={signOut}
-      />
+      <div>
+        <p>Sign Out</p>
+        <ArrowRightOnRectangleIcon
+          className="my-6 h-6 w-6 cursor-pointer text-blue-500"
+          onClick={signOut}
+        />
+      </div>
       <form onSubmit={handleSubmit}>
         <div>
           <input
@@ -88,7 +97,7 @@ export default function Auth() {
         onClick={() => setIsLogin(!isLogin)}
         className="cursor-pointer font-medium hover:text-indigo-500"
       >
-        change mode ?
+        {!isLogin ? 'Change Login mode' : 'Change Register mode'}
       </p>
     </div>
   )
