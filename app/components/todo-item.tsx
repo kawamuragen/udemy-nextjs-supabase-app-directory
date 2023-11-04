@@ -1,4 +1,6 @@
 'use client'
+
+// Todoページの左ペインエリア・Todoの単一リスト
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { TrashIcon, PencilIcon } from '@heroicons/react/24/solid'
@@ -10,17 +12,24 @@ type Todo = Database['public']['Tables']['todos']['Row']
 
 export default function TodoItem(todo: Todo) {
   const router = useRouter()
+
+  // 更新とリセットの関数呼び出し
   const updateTask = useStore((state) => state.updateEditedTask)
   const resetTask = useStore((state) => state.resetEditedTask)
+
+  // チェックボックスを押下したときの関数
   async function updateMutate(id: string, completed: boolean) {
     await supabase.from('todos').update({ completed: completed }).eq('id', id)
     resetTask()
     router.refresh()
   }
+
+  // ゴミ箱ボタン押されたときの関数
   async function deleteMutate(id: string) {
     await supabase.from('todos').delete().eq('id', id)
     router.refresh()
   }
+
   return (
     <li className="my-2">
       <input

@@ -1,4 +1,5 @@
 'use client'
+// Todoページの左ペインエリア・Todoの編集フォーム
 import { FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
@@ -9,6 +10,7 @@ export default function EditTask() {
   const router = useRouter()
   const { editedTask } = useStore()
   const { loginUser } = useStore()
+  // 更新とリセットの関数呼び出し
   const updateTask = useStore((state) => state.updateEditedTask)
   const reset = useStore((state) => state.resetEditedTask)
 
@@ -16,12 +18,16 @@ export default function EditTask() {
     supabase.auth.signOut()
     router.push('/auth')
   }
+
+  // submitが押されたときの処理
+  // IDなければ新規・あれば編集
   async function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (editedTask.id === '') {
       const { error } = await supabase
         .from('todos')
         .insert({ title: editedTask.title, user_id: loginUser.id })
+      // 更新内容をすぐに表示したいのでリフレッシュ
       router.refresh()
       reset()
     } else {
@@ -29,6 +35,7 @@ export default function EditTask() {
         .from('todos')
         .update({ title: editedTask.title })
         .eq('id', editedTask.id)
+      // 更新内容をすぐに表示したいのでリフレッシュ
       router.refresh()
       reset()
     }
